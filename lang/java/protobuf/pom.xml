@@ -28,6 +28,7 @@
   </parent>
 
   <artifactId>avro-protobuf</artifactId>
+  <version>1.9.1-1-g99108acc-videoamp-SNAPSHOT</version>
 
   <name>Apache Avro Protobuf Compatibility</name>
   <description>Permit serialization of Protobuf-generated classes as Avro data.</description>
@@ -37,12 +38,23 @@
     <main.basedir>${project.parent.parent.basedir}</main.basedir>
     <osgi.import>
       !org.apache.avro.protobuf*,
-      org.apache.avro*;version="${project.version}",
-      com.google.protobuf*;version="${project.version}",
+      org.apache.avro*;version="${project.parent.version}",
+      com.google.protobuf*;version="${project.parent.version}",
       *
     </osgi.import>
     <osgi.export>org.apache.avro.protobuf*;version="${project.version}"</osgi.export>
   </properties>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>videoamp-jfrog</id>
+      <url>https://videoamp.jfrog.io/videoamp/snapshot</url>
+    </snapshotRepository>
+    <repository>
+      <id>videoamp-jfrog</id>
+      <url>https://videoamp.jfrog.io/videoamp/release</url>
+    </repository>
+  </distributionManagement>
 
   <profiles>
     <profile>
@@ -99,7 +111,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>avro</artifactId>
-      <version>${project.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.protobuf</groupId>
