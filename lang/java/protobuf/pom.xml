@@ -28,7 +28,7 @@
   </parent>
 
   <artifactId>avro-protobuf</artifactId>
-  <version>1.9.1-1-g99108acc-videoamp-SNAPSHOT</version>
+  <version>1.9.1-gf61b7a8c-videoamp-SNAPSHOT</version>
 
   <name>Apache Avro Protobuf Compatibility</name>
   <description>Permit serialization of Protobuf-generated classes as Avro data.</description>

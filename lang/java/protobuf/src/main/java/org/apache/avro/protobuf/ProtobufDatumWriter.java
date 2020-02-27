@@ -17,14 +17,13 @@
  */
 package org.apache.avro.protobuf;
 
-import java.io.IOException;
-
+import com.google.protobuf.ByteString;
+import com.google.protobuf.Descriptors.EnumValueDescriptor;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.io.Encoder;
 
-import com.google.protobuf.ByteString;
-import com.google.protobuf.Descriptors.EnumValueDescriptor;
+import java.io.IOException;
 
 /**
  * {@link org.apache.avro.io.DatumWriter DatumWriter} for generated protobuf
@@ -55,8 +54,14 @@ public class ProtobufDatumWriter<T> extends GenericDatumWriter<T> {
   protected void writeEnum(Schema schema, Object datum, Encoder out) throws IOException {
     if (!(datum instanceof EnumValueDescriptor))
       super.writeEnum(schema, datum, out); // punt to generic
-    else
-      out.writeEnum(schema.getEnumOrdinal(((EnumValueDescriptor) datum).getName()));
+    else {
+      if (((EnumValueDescriptor) datum).getIndex() == -1) {
+        out.writeEnum(0);
+      } else {
+        out.writeEnum(schema.getEnumOrdinal(((EnumValueDescriptor) datum).getName()));
+      }
+    }
+
   }
 
   @Override
